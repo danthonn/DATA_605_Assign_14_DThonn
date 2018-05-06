@@ -1,0 +1,220 @@
+---
+title: "DATA_605_Assign_14_DThonn"
+file: DATA_605_Assign_14_DThonn
+name: Daniel Thonn
+output:
+  html_document: default
+  pdf_document: default
+course: DATA 605 CUNY MSDA program
+---
+
+** DATA_605_Assignment 14 - Calculus 2 - Taylor Series **
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``````{r, echo=TRUE}
+if (!require(stats)) install.packages("stats")
+library(stats)
+
+if (!require(pracma)) install.packages("pracma")
+library(pracma)
+
+
+```
+
+
+Assignment 14:
+
+Work out the Taylor Series expansions of popular functions as shown below.
+
+For each function, only consider its valid ranges as indicated in the notes when you are
+computing the Taylor Series expansion.
+
+
+
+** Question-1 **
+
+1).
+f(x) = 1/(1-x)
+
+$$f(x) = \frac{1}{(1-x)}$$
+
+Derivatives:
+$$f(x) = \frac{1}{(1-x)}$$
+$$f'(x) = \frac{1}{(1-x)^2}$$
+$$f''(x) = \frac{2}{(1-x)^3}$$
+$$f'''(x) = \frac{6}{(1-x)^4}$$
+Taylor Series:
+$$  = f(x) + \frac{f'(x)}{(1!)}(x-c)^1 + \frac{f'"(x)}{(2!)}(x-c)^2 + .... $$
+$$  = f(x) + \frac{f'(x)}{(1!)}(x-c)^1 + \frac{f'"(x)}{(2!)}(x-c)^2 + .... $$
+when plug in functions equals:
+$$  = 1 + x + x^2 + x^3 + .... $$
+Calculate in R:
+
+``````{r, echo=TRUE}
+# check range -10 to 10
+a1 = -10
+f1 <- function(x) {1/(1-x)} 
+Result1 <- taylor(f1, x0=a1, 10)
+Result1
+
+plot(Result1)
+
+# check range -5 to 5
+a2 = -5
+f2 <- function(x) {1/(1-x)} 
+Result2 <- taylor(f2, x0=a2, 5)
+Result2
+
+plot(Result2)
+
+# check range 3 to 5
+a3 = 3
+f3 <- function(x) {1/(1-x)} 
+Result3 <- taylor(f3, x0=a3, 5)
+Result3
+
+plot(Result3)
+
+# result-1: range of 3 to 5 is a useful linear range
+
+```
+
+
+** Question-2 **
+
+2). 
+f(x) = e^x
+if centered at c=0
+
+$$f(x) = e^x$$
+$$f(0) = 1$$
+
+
+Derivatives:
+
+$$f'(0) = e^x = 1$$
+
+$$f''(0) = e^x = 1$$
+
+$$f'''(x) = e^x = 1$$
+
+Taylor Series:
+$$\Sigma_{n=0}^{\infty}\frac{f'^{(n)}(0)}{(n!)}(x)^n = e^x + \frac{e^{(x)}}{(1!)}(x)^{1} + \frac{e^{(x)}}{(2!)}(x)^{2} + ...$$
+
+$$  = 1 + \frac{1}{(1!)}(x)^{1} + \frac{1}{(2!)}(x)^{2} + ...$$
+
+when plug in functions equals:
+
+$$  = \Sigma_{n=0}^{\infty}\frac{1}{(n!)}(x)^n $$
+
+Calculate in R:
+
+
+``````{r, echo=TRUE}
+# check range -8 to 8
+a21 = -8
+f21 <- function(x) exp(x)
+Result21 <- taylor(f21, x0=a21, 8)
+Result21
+
+plot(Result21)
+
+# check range 0 to 8
+a22 = 0
+f22 <- function(x) exp(x)
+Result22 <- taylor(f22, x0=a22, 8)
+Result22
+
+plot(Result22)
+
+# check range 0 to 4
+a23 = 0
+f23 <- function(x) exp(x)
+Result23 <- taylor(f23, x0=a23, 4)
+Result23
+
+plot(Result23)
+
+# Result-2: range of 0 to 4 is a useful linear range
+
+
+
+```
+
+** Question-3 **
+
+3). 
+f(x) = ln(1+x)
+if centered at 0
+$$f(x) = ln(1+x)$$
+
+
+Derivatives:
+$$f'(0) = \frac{1}{(1+x)} = 1$$
+
+
+$$f'"(0) = \frac{1}{(1+x)^2} = -1$$
+
+
+$$f'''(x) = \frac{2}{(1+x)^3} = 2$$
+$$\frac{d^4}{d(x)^4}ln(1+x) = \frac{-6}{(1+x)^4} = -6$$
+$$\frac{d^5}{d(x)^5}ln(1+x) = \frac{24}{(1+x)^5} = 24$$
+
+
+Taylor Series:
+$$\Sigma_{n=0}^{\infty}\frac{f'^{(n)}(0)}{(n!)}(x)^n = ln(1+x) + \frac{1}{(1!)}(x)^{1} + \frac{-1}{(2!)}(x)^{2} + ...$$
+$$ = 0 + \frac{1}{(1!)}(x)^{1} + \frac{-1}{(2!)}(x)^{2} + \frac{3}{(3!)}(x)^{3} ...$$
+
+$$ = x - \frac{1}{(2)}(x)^{2} + \frac{1}{(3)}(x)^{3} - \frac{1}{(4)}(x)^{4} ...$$
+$$ = \Sigma_{n=0}^{\infty} (-1)^{n+1} \frac{1}{(n)}(x)^n $$
+
+
+
+Calculate in R:
+
+
+
+``````{r, echo=TRUE}
+
+# check range 0 to 8
+a31 = 0
+f31 <- function(x) log((1 + x), base = exp(1))
+Result31 <- taylor(f31, x0=a31, 8)
+Result31
+
+plot(Result31)
+
+# check range 0 to 6
+a32 = 0
+f32 <- function(x) log((1 + x), base = exp(1))
+Result32 <- taylor(f32, x0=a22, 6)
+Result32
+
+plot(Result32)
+
+# check range 0 to 3
+a33 = 0
+f33 <- function(x) log((1 + x), base = exp(1))
+Result33 <- taylor(f33, x0=a22, 3)
+Result33
+
+plot(Result33)
+
+# Result-3: range of 0 to 8 is a better representaive range with this function.  It can be seen there is a diverging oscillating output. 
+
+
+```
+
+
+** END **
+
+
+``````{r, echo=TRUE}
+
+```
+
+
